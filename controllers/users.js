@@ -1,7 +1,10 @@
 
-import { ObjectId } from "mongodb";
+import 'dotenv/config';
+
+import { ObjectId, ServerClosedEvent } from "mongodb";
 import { default as mongodb } from 'mongodb';
 import {default as bcrypt} from 'bcrypt';
+import {default as jwt} from 'jsonwebtoken';
 
 let MongoClient = mongodb.MongoClient;
 const url = 'mongodb://127.0.0.1:27017';
@@ -21,8 +24,38 @@ MongoClient.connect(url, {
     console.log(`MongoDB Connected: ${url}`);
 });
 
+export const authenticateToken = (req, res, next) =>{
+    console.log("inside authorization")
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+    if (token == null) return res.sendStatus(401)
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user)=>{
+        if(err) return res.sendStatus(403)
+        req.user = user
+        next()
+    })
+}
+
+export const refreshToken = (req, res) => {
+    const refresh_token = req.body.token
+    if(refreshToken == null) return res.sendStatus(401)
+    console.log("REFRESHING")
+    db.collection("refreshTokens").find({token: refresh_token}).toArray((err, result)=>{
+        if(err) return res.sendStatus(403)
+        console.log("token FOUND")
+    })
+    jwt.verify(refresh_token, process.env.REFRESH_TOKEN_SECRET, (err, user) =>{
+        if(err) return res.sendStatus(403)
+        console.log(user)
+        const token = generateToken({name: user.name})
+        res.json({token: token})
+    })
+}
+
 
 export const getAllUsers = (req, res)=>{
+
     let customers = db.collection('customers');
     customers
         .find({})
@@ -81,18 +114,26 @@ export const loginUser = (req, res)=>{
             user = r[0];
             console.log(r[0]);
             if(!user){
-                return res.status(400).send("Cant find User with this id");
+                return res.status(400).send("Cant find User with this id")
             }else{
                 try{
                     bcrypt.compare(req.body.password, user.password, function(err, isMatch) {
                         if (err) {
-                        throw err
+                            throw err
                         } else if (!isMatch) {
-                        console.log("Password doesn't match!")
-                        return res.send("Password not matched")
+                            console.log("Password doesn't match!")
+                            return res.send("Password not matched")
                         } else {
-                        console.log("Password matches!")
-                        return res.send("Success Login")
+                            console.log("Password matches!")
+
+                            const payload = {name: user.firstName}
+                            const token = generateToken(payload)
+                            const refresh_token = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET)
+                            db.collection("refreshTokens").insertOne({
+                                token : refresh_token
+                            })
+
+                            return res.json({token: token, refresh_token: refresh_token})
                         }
                     })
                 }catch(e){
@@ -104,6 +145,10 @@ export const loginUser = (req, res)=>{
         return res.send("Invalid Id");
     }
     
+}
+
+function generateToken(payload){
+    return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "60s"})
 }
 
 export const deleteUser = (req, res)=>{
