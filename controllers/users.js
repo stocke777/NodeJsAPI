@@ -1,10 +1,11 @@
 
 import 'dotenv/config';
 
-import { ObjectId, ServerClosedEvent } from "mongodb";
+import { ObjectId } from "mongodb";
 import { default as mongodb } from 'mongodb';
 import {default as bcrypt} from 'bcrypt';
 import {default as jwt} from 'jsonwebtoken';
+import {blah} from './mongoosetesting.js';
 
 let MongoClient = mongodb.MongoClient;
 const url = 'mongodb://127.0.0.1:27017';
