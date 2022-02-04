@@ -7,23 +7,35 @@ import {default as bcrypt} from 'bcrypt';
 import {default as jwt} from 'jsonwebtoken';
 import {blah} from './mongoosetesting.js';
 
-let MongoClient = mongodb.MongoClient;
-const url = 'mongodb://127.0.0.1:27017';
+import {User, Cat} from '../models/user.js';
+import mongoose from 'mongoose';
 
-let db = {};
+async function main() {
+    console.log("connected")
+    await mongoose.connect('mongodb://localhost:27017/testing');
+}
 
-MongoClient.connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}, (err, client) => {
-    if (err) {
-        return console.log(err);
-    }
-    // Specify database you want to access
-    db = client.db('testing');
+main()
 
-    console.log(`MongoDB Connected: ${url}`);
-});
+
+
+// let MongoClient = mongodb.MongoClient;
+// const url = 'mongodb://127.0.0.1:27017';
+
+// let db = {};
+
+// MongoClient.connect(url, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// }, (err, client) => {
+//     if (err) {
+//         return console.log(err);
+//     }
+//     // Specify database you want to access
+//     db = client.db('testing');
+
+//     console.log(`MongoDB Connected: ${url}`);
+// });
 
 export const authenticateToken = (req, res, next) =>{
     console.log("inside authorization")
@@ -55,53 +67,72 @@ export const refreshToken = (req, res) => {
 }
 
 
-export const getAllUsers = (req, res)=>{
+export const getAllUsers = async (req, res)=>{
 
-    let customers = db.collection('customers');
-    customers
-        .find({})
-        .toArray((err, results) => {
-        res.send(results);
-    });
+    // let customers = db.collection('customers');
+    // customers
+    //     .find({})
+    //     .toArray((err, results) => {
+    //     res.send(results);
+    // });
+    const allusers =  await User.find({});
+    res.send(allusers)
 };
 
-export const getUser = (req, res)=>{
+export const getUser = async (req, res)=>{
     const {id} = req.params;
-    let customers = db.collection('customers');
-    try{
-        customers.find({_id:ObjectId(id)}).toArray((err, results) => {
-            if (err) throw err;
-            if(results.length === 0){
-                res.send("No user found with this ID");
-            }else{
-                res.send(results);
-            }
-        });
-    }
-    catch(e){
-        res.send("Invalid Id");
-    }
+    // let customers = db.collection('customers');
+    // try{
+    //     customers.find({_id:ObjectId(id)}).toArray((err, results) => {
+    //         if (err) throw err;
+    //         if(results.length === 0){
+    //             res.send("No user found with this ID");
+    //         }else{
+    //             res.send(results);
+    //         }
+    //     });
+    // }
+    // catch(e){
+    //     res.send("Invalid Id");
+    // }
+
+    const user = await User.findById(id)
+    res.send(user)
 };
 
 export const createUser = async (req, res)=>{
     const user = req.body;
 
-    if (!user.password) res.send("Please provide password!!!");
+    if (!user.password || !user.firstName) res.send("Please provide name and password!!!");
+
+    // try{
+
+    //     const salt = await bcrypt.genSalt();
+    //     const hashedpassword = await bcrypt.hash(user.password, salt);
+
+    //     let customers = db.collection('customers');
+        // customers.insertOne({ firstName: user.firstName, lastName: user.lastname, age: user.age, password: hashedpassword }, (err, result) => {
+        //     if(err) throw err;
+        // });
+    // }
+    // catch(e){
+    //     res.send("Provide correct details please.")
+    // }
+    // res.send(`User with name ${user.firstName} saved.`);
 
     try{
 
         const salt = await bcrypt.genSalt();
         const hashedpassword = await bcrypt.hash(user.password, salt);
 
-        let customers = db.collection('customers');
-        customers.insertOne({ firstName: user.firstName, lastName: user.lastname, age: user.age, password: hashedpassword }, (err, result) => {
+        const u = new User({ firstName: user.firstName, lastName: user.lastName, age: user.age, password: hashedpassword }, (err, result) => {
             if(err) throw err;
-        });
+        })
+        u.save();
+        res.send(`User with name ${user.firstName} saved`)
+    }catch(e){
+        res.send("Provide Correct details please.")
     }
-    catch(e){
-        res.send("Provide correct details please.")
-    }
-    res.send(`User with name ${user.firstName} saved.`);
 };
 
 export const loginUser = (req, res)=>{
