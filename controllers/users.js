@@ -1,5 +1,5 @@
 
-import 'dotenv/config';
+// import 'dotenv/config';
 
 import { ObjectId } from "mongodb";
 import { default as mongodb } from 'mongodb';
@@ -17,7 +17,7 @@ import mongoose from 'mongoose';
 try{
     async function main() {
         console.log("connected")
-        await mongoose.connect('mongodb+srv://jaimongodb4db:<Password>@cluster0.2cec6.mongodb.net/Cluster0?retryWrites=true&w=majority');
+        await mongoose.connect(`mongodb+srv://jaimongodb4db:${process.env.Password}@cluster0.2cec6.mongodb.net/Cluster0?retryWrites=true&w=majority`);
     }
     main()
 }catch(e){
