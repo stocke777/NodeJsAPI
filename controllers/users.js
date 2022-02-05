@@ -10,12 +10,19 @@ import {blah} from './mongoosetesting.js';
 import {User, Cat, RefreshToken} from '../models/user.js';
 import mongoose from 'mongoose';
 
-async function main() {
-    console.log("connected")
-    await mongoose.connect('mongodb://localhost:27017/testing');
+// async function main() {
+//     console.log("connected")
+//     await mongoose.connect('mongodb://localhost:27017/testing');
+// }
+try{
+    async function main() {
+        console.log("connected")
+        await mongoose.connect('mongodb+srv://jaimongodb4db:<Password>@cluster0.2cec6.mongodb.net/Cluster0?retryWrites=true&w=majority');
+    }
+    main()
+}catch(e){
+    console.log("cant connect")
 }
-
-main()
 
 
 
