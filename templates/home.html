@@ -21,8 +21,61 @@
                 <h2>Requests Tutorial</h2>
                 <p>You can use any client to make request. I used Postman for testing.</p>
             </div>
-            <div class="decription">
-                <div class="requestName"></div>
+            <div class="requestType">
+                <div class="requestName"><h4>Home Page</h4></div>
+                <div class="description">
+                    <ul>
+                        <li>Link: /</li>
+                        <li>Type: GET</li>
+                        <li>Parameter: None</li>
+                        <li>Body: None</li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="requestType">
+                <div class="requestName"><h4>Create User</h4></div>
+                <div class="description">
+                    <ul>
+                        <li>Link: /users</li>
+                        <li>Type: POST</li>
+                        <li>Parameter: None</li>
+                        <li>Body: <br>
+                            { <br>
+                                &emsp; "firstName": "firstname", <br>
+                                &emsp; "lastName": "lastname", <br>
+                                &emsp; "age": "age", <br>
+                                &emsp; "password": "password" <br>
+                            }
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="requestType">
+                <div class="requestName"><h4>Get Specific User Info</h4></div>
+                <div class="description">
+                    <ul>
+                        <li>Link: /users</li>
+                        <li>Type: GET</li>
+                        <li>Parameter: Id</li>
+                        <li>Body: None</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="requestType">
+                <div class="requestName"><h4>Login</h4></div>
+                <div class="description">
+                    <ul>
+                        <li>Link: /users</li>
+                        <li>Type: POST</li>
+                        <li>Parameter: Id</li>
+                        <li>Body: <br>
+                            { <br>
+                                &emsp; "password": "password" <br>
+                            }
+                        </li>
+                    </ul>
+                </div>
             </div>
             
         </div>
