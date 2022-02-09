@@ -1,5 +1,5 @@
-import {User, Cat} from '../models/user.js';
-import mongoose from 'mongoose';
+// import {User, Cat} from '../models/user.js';
+// import mongoose from 'mongoose';
 
 // async function main() {
 //     console.log("connected")

@@ -15,5 +15,4 @@ const RefreshTokenSchema = new mongoose.Schema({
 
 
 export const User = mongoose.model('User', userSchema)
-export const Cat = mongoose.model('Cat', catSchema)
 export const RefreshToken = mongoose.model('RefreshToken', RefreshTokenSchema)

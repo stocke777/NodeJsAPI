@@ -7,7 +7,7 @@ import {default as bcrypt} from 'bcrypt';
 import {default as jwt} from 'jsonwebtoken';
 import {blah} from './mongoosetesting.js';
 
-import {User, Cat, RefreshToken} from '../models/user.js';
+import {User, RefreshToken} from '../models/user.js';
 import mongoose from 'mongoose';
 
 // async function main() {

@@ -10,74 +10,118 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
-    <body>
-
+    <body style="background-color: black;">
 
         <div class="container">
             <div class="title">
                 <h2>Requests Tutorial</h2>
                 <p>You can use any client to make request. I used Postman for testing.</p>
             </div>
-            <div class="requestType">
-                <div class="requestName"><h4>Home Page</h4></div>
-                <div class="description">
-                    <ul>
-                        <li>Link: /</li>
-                        <li>Type: GET</li>
-                        <li>Parameter: None</li>
-                        <li>Body: None</li>
-                        
-                    </ul>
+            <div class="requests">
+                <div class="requestType">
+                    <div class="requestName"><h4>Home Page</h4></div>
+                    <div class="description">
+                        <ul>
+                            <li>Link: /</li>
+                            <li>Type: GET</li>
+                            <li>Parameter: None</li>
+                            <li>Body: None</li>
+                            
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="requestType">
-                <div class="requestName"><h4>Create User</h4></div>
-                <div class="description">
-                    <ul>
-                        <li>Link: /users</li>
-                        <li>Type: POST</li>
-                        <li>Parameter: None</li>
-                        <li>Body: <br>
-                            { <br>
-                                &emsp; "firstName": "firstname", <br>
-                                &emsp; "lastName": "lastname", <br>
-                                &emsp; "age": "age", <br>
-                                &emsp; "password": "password" <br>
-                            }
-                        </li>
-                    </ul>
+                <div class="requestType">
+                    <div class="requestName"><h4>Create User</h4></div>
+                    <div class="description">
+                        <ul>
+                            <li>Link: /users</li>
+                            <li>Type: POST</li>
+                            <li>Parameter: None</li>
+                            <li>Body: <br>
+                                { <br>
+                                    &emsp; "firstName": "firstname", <br>
+                                    &emsp; "lastName": "lastname", <br>
+                                    &emsp; "age": "age", <br>
+                                    &emsp; "password": "password" <br>
+                                }
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="requestType">
-                <div class="requestName"><h4>Get Specific User Info</h4></div>
-                <div class="description">
-                    <ul>
-                        <li>Link: /users</li>
-                        <li>Type: GET</li>
-                        <li>Parameter: Id</li>
-                        <li>Body: None</li>
-                    </ul>
+                <div class="requestType">
+                    <div class="requestName"><h4>Get Specific User Info</h4></div>
+                    <div class="description">
+                        <ul>
+                            <li>Link: /users</li>
+                            <li>Type: GET</li>
+                            <li>Parameter: Id</li>
+                            <li>Body: None</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="requestType">
-                <div class="requestName"><h4>Login</h4></div>
-                <div class="description">
-                    <ul>
-                        <li>Link: /users</li>
-                        <li>Type: POST</li>
-                        <li>Parameter: Id</li>
-                        <li>Body: <br>
-                            { <br>
-                                &emsp; "password": "password" <br>
-                            }
-                        </li>
-                    </ul>
+                <div class="requestType">
+                    <div class="requestName"><h4>Login</h4></div>
+                    <div class="description">
+                        <ul>
+                            <li>Link: /users</li>
+                            <li>Type: POST</li>
+                            <li>Parameter: Id</li>
+                            <li>Body: <br>
+                                { <br>
+                                    &emsp; "password": "password" <br>
+                                }
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            
+                <div class="requestType">
+                    <div class="requestName"><h4>Patch User</h4></div>
+                    <div class="description">
+                        <ul>
+                            <li>Link: /users</li>
+                            <li>Type: PATCH</li>
+                            <li>Parameter: Id</li>
+                            <li>Body: (as required)<br>
+                                { <br>
+                                    &emsp; "firstName": "firstname", <br>
+                                    &emsp; "lastName": "lastname", <br>
+                                    &emsp; "age": "age", <br>
+                                    &emsp; "password": "password" <br>
+                                }
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="requestType">
+                    <div class="requestName"><h4>Delete User</h4></div>
+                    <div class="description">
+                        <ul>
+                            <li>Link: /users</li>
+                            <li>Type: DELETE</li>
+                            <li>Parameter: Id</li>
+                            <li>Body: None</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="requestType">
+                    <div class="requestName"><h4>Refresh Token</h4></div>
+                    <div class="description">
+                        <ul>
+                            <li>Link: /users/refresh</li>
+                            <li>Type: POST</li>
+                            <li>Parameter: None</li>
+                            <li>Body: <br>
+                                { <br>
+                                    &emsp; "token": "refresh_token", <br>
+                                }
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>         
         </div>
         
 

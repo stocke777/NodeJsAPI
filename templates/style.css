@@ -1,0 +1,23 @@
+.requestType{
+    display: flex;
+    background-color: rgb(230, 125, 77);
+    margin: 15px;
+    border-radius: 2em;
+    padding: 10px;
+    color: white;
+}
+
+.requests{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+
+.title{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+}
