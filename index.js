@@ -11,6 +11,7 @@ if (port == null || port == "") {
 }
 
 app.use(bodyParser.json());
+app.use(express.static('public'))
 
 app.get('/', (req, res) => {
     const options = {
